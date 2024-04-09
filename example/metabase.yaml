@@ -1,0 +1,54 @@
+replicaCount: 1
+
+pdb:
+  create: false
+  minAvailable: 1
+  maxUnavailable: "25"
+
+database:
+  # Database type (h2 / mysql / postgres), default: h2
+  type: postgres
+  ## Specify file to store H2 database.  You will also have to back this with a volume (cf. extraVolume and extraVolumeMounts)!
+  # file:
+  # encryptionKey: << YOUR ENCRYPTION KEY OR LEAVE BLANK AND USE EXISTING SECRET >>
+  ## Only need when you use mysql / postgres
+  host:
+  port: 5432
+  dbname: metabase
+  username: postgres
+  password:
+
+  googleCloudSQL:
+    ## Found in Cloud Console "Cloud SQL Instance details" or using `gcloud sql instances describe INSTANCE_ID`
+    ## example format: $project:$region:$instance=tcp:$port
+    ## Each connection must have a unique TCP port.
+    instanceConnectionNames: []
+    ## Option to use a specific version of the *Cloud SQL Auth proxy* sidecar image.
+    ## ref: https://console.cloud.google.com/gcr/images/cloudsql-docker/GLOBAL/gce-proxy
+    # sidecarImageTag: latest
+    ## ref: https://cloud.google.com/sql/docs/postgres/connect-kubernetes-engine#running_the_as_a_sidecar
+    resources: {}
+    securityContext:
+      runAsNonRoot: true
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-next-upstream-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-body-size: "128m"
+  hosts:
+    - "metabase.opszero.com"
+  path: /
+  pathType: Prefix
+  tls:
+    - hosts:
+        - metabase.opszero.com
+      secretName: metabase-tls
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
