@@ -6,14 +6,10 @@ resource "random_password" "password" {
 }
 
 module "postgresql" {
-  source = "github.com/opszero/terraform-aws-rds"
+  source = "git::https://github.com/opszero/terraform-aws-rds.git?ref=v1.0.0"
 
   #lables
-  name        = var.name
-  environment = var.environment
-  managedby   = var.managedby
-  repository  = var.repository
-  label_order = var.label_order
+  name = var.name
 
   #networking
   allowed_ip          = var.allowed_ip
@@ -38,23 +34,23 @@ module "postgresql" {
 
   #database
   db_name        = var.db_name
-  username       = var.username
+  db_username    = var.username
   password       = var.password == "" ? join("", random_password.password.*.result) : var.password
   port           = "5432"
   instance_class = var.instance_class
 
   #engine
-  engine                          = "postgres"
-  engine_name                     = "postgres"
-  engine_version                  = "15.5"
-  family                          = "postgres15"
-  major_engine_version            = "15"
+  engine               = "postgres"
+  engine_name          = "postgres"
+  engine_version       = "15.5"
+  family               = "postgres15"
+  major_engine_version = "15"
 
   #other
-  multi_az                        = false
-  ssm_parameter_endpoint_enabled  = false
-  deletion_protection             = false
-  apply_immediately               = true
+  multi_az                       = false
+  ssm_parameter_endpoint_enabled = false
+  deletion_protection            = false
+  apply_immediately              = true
 
 
 }
@@ -69,13 +65,13 @@ resource "helm_release" "metabase" {
   repository       = "https://pmint93.github.io/helm-charts"
   version          = var.metabase_version
   values           = [file("metabase.yaml")]
-  set {
-    name  = "database.host"
-    value = module.postgresql.db_instance_address
-  }
-  set {
-    name  = "database.password"
-    value = var.password == "" ? join("", random_password.password.*.result) : var.password
-  }
-
+  set = [
+    {
+      name  = "database.host"
+      value = module.postgresql.db_instance_address
+    },
+    {
+      name  = "database.password"
+      value = var.password == "" ? join("", random_password.password.*.result) : var.password
+  }]
 }
