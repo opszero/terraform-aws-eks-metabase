@@ -1,30 +1,69 @@
+# Terraform-aws-metabase
+# Terraform AWS Cloud metabase Modules
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Usage](#usage)
+- [Examples](#Examples)
+- [Author](#Author)
+- [License](#license)
+- [Inputs](#inputs)
+- [Outputs](#outputs)
+
+
+## Introduction
+This Terraform module creates AWS metabase along with additional configuration options.
+
+## Usage
+To use this module, include it in your Terraform configuration file and provide the required input variables. Below is an example of how to use the module:
+# Example: metabase
+
+```hcl
+module "metabase" {
+  source         = "git::https://github.com/opszero/terraform-aws-eks-metabase.git?ref=v1.0.1"
+  name           = "prod"
+  instance_class = "db.t3.micro"
+  vpc_id         = "vpc-xxxxxxxxxx" # add vpc id here
+  subnet_ids     = ["subnets-xxxxxxx", "subnets-xxxxxxxx"]
+
+  password   = "" #if add some password
+  allowed_ip = ["0.0.0.0/0"]
+
+}
+```
+
+## Examples
+For detailed examples on how to use this module, please refer to the [Examples](https://github.com/opszero/terraform-aws-eks-metabase/tree/main/example) directory within this repository.
+
+## Author
+Your Name Replace **MIT** and **opszero** with the appropriate license and your information. Feel free to expand this README with additional details or usage instructions as needed for your specific use case.
+
+## License
+This project is licensed under the **MIT** License - see the [LICENSE](https://github.com/opszero/terraform-aws-eks-metabase/blob/main/LICENSE) file for details.
+
 <!-- BEGIN_TF_DOCS -->
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_helm"></a> [helm](#provider\_helm) | n/a |
-| <a name="provider_random"></a> [random](#provider\_random) | n/a |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | 3.0.2 |
+| <a name="provider_random"></a> [random](#provider\_random) | 3.7.2 |
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_allocated_storage"></a> [allocated\_storage](#input\_allocated\_storage) | The allocated storage in gigabytes | `number` | `50` | no |
 | <a name="input_allowed_ip"></a> [allowed\_ip](#input\_allowed\_ip) | List of allowed ip. | `list(any)` | `[]` | no |
-| <a name="input_allowed_ports"></a> [allowed\_ports](#input\_allowed\_ports) | List of allowed ingress ports | `list(any)` | <pre>[<br/>  5432<br/>]</pre> | no |
+| <a name="input_allowed_ports"></a> [allowed\_ports](#input\_allowed\_ports) | List of allowed ingress ports | `list(any)` | <pre>[<br>  5432<br>]</pre> | no |
 | <a name="input_db_name"></a> [db\_name](#input\_db\_name) | The DB name to create. If omitted, no database is created initially | `string` | `"metabase"` | no |
-| <a name="input_enabled_cloudwatch_logs_exports"></a> [enabled\_cloudwatch\_logs\_exports](#input\_enabled\_cloudwatch\_logs\_exports) | List of log types to enable for exporting to CloudWatch logs. If omitted, no logs will be exported. Valid values (depending on engine): alert, audit, error, general, listener, slowquery, trace, postgresql (PostgreSQL), upgrade (PostgreSQL). | `list(string)` | <pre>[<br/>  "postgresql",<br/>  "upgrade"<br/>]</pre> | no |
-| <a name="input_environment"></a> [environment](#input\_environment) | Environment (e.g. `prod`, `dev`, `staging`). | `string` | `"prod"` | no |
+| <a name="input_enabled_cloudwatch_logs_exports"></a> [enabled\_cloudwatch\_logs\_exports](#input\_enabled\_cloudwatch\_logs\_exports) | List of log types to enable for exporting to CloudWatch logs. If omitted, no logs will be exported. Valid values (depending on engine): alert, audit, error, general, listener, slowquery, trace, postgresql (PostgreSQL), upgrade (PostgreSQL). | `list(string)` | <pre>[<br>  "postgresql",<br>  "upgrade"<br>]</pre> | no |
 | <a name="input_instance_class"></a> [instance\_class](#input\_instance\_class) | The instance type of the RDS instance | `string` | `""` | no |
-| <a name="input_label_order"></a> [label\_order](#input\_label\_order) | Label order, e.g. `name`,`environment`. | `list(any)` | <pre>[<br/>  "name",<br/>  "environment"<br/>]</pre> | no |
-| <a name="input_managedby"></a> [managedby](#input\_managedby) | ManagedBy, eg 'cypik'. | `string` | `"opsZero"` | no |
 | <a name="input_metabase_version"></a> [metabase\_version](#input\_metabase\_version) | version of metabase hemm chart. | `string` | `"2.10.4"` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name  (e.g. `app` or `cluster`). | `string` | `"metabase"` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | namespace of metabase   (e.g. `tools` or `metabase`). | `string` | `"metabase"` | no |
 | <a name="input_password"></a> [password](#input\_password) | Password for the master DB user. Note that this may show up in logs, and it will be stored in the state file | `string` | `""` | no |
 | <a name="input_publicly_accessible"></a> [publicly\_accessible](#input\_publicly\_accessible) | Bool to control if instance is publicly accessible | `bool` | `false` | no |
-| <a name="input_repository"></a> [repository](#input\_repository) | Terraform current module repo | `string` | `"https://github.com/opszero/terraform-aws-eks-metabase.git"` | no |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | A list of VPC Subnet IDs to launch in. | `list(string)` | `[]` | no |
 | <a name="input_username"></a> [username](#input\_username) | Username for the master DB user | `string` | `"postgres"` | no |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | The ID of the VPC that the instance security group belongs to. | `string` | `""` | no |
@@ -32,8 +71,8 @@
 
 | Name | Type |
 |------|------|
-| [helm_release.metabase](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
-| [random_password.password](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
+| [helm_release.metabase](https://registry.terraform.io/providers/hashicorp/helm/3.0.2/docs/resources/release) | resource |
+| [random_password.password](https://registry.terraform.io/providers/hashicorp/random/3.7.2/docs/resources/password) | resource |
 ## Outputs
 
 No outputs.
