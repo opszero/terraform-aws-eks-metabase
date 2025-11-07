@@ -47,7 +47,7 @@ This project is licensed under the **MIT** License - see the [LICENSE](https://g
 
 | Name | Version |
 |------|---------|
-| <a name="provider_helm"></a> [helm](#provider\_helm) | 3.0.2 |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | 3.1.0 |
 | <a name="provider_random"></a> [random](#provider\_random) | 3.7.2 |
 ## Inputs
 
@@ -71,7 +71,7 @@ This project is licensed under the **MIT** License - see the [LICENSE](https://g
 
 | Name | Type |
 |------|------|
-| [helm_release.metabase](https://registry.terraform.io/providers/hashicorp/helm/3.0.2/docs/resources/release) | resource |
+| [helm_release.metabase](https://registry.terraform.io/providers/hashicorp/helm/3.1.0/docs/resources/release) | resource |
 | [random_password.password](https://registry.terraform.io/providers/hashicorp/random/3.7.2/docs/resources/password) | resource |
 ## Outputs
 
