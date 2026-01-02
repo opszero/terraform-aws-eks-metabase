@@ -32,7 +32,7 @@ module "postgresql" {
   # database
   db_name        = var.db_name
   db_username    = var.username
-  password       = var.password == "" ? random_password.password[0].result : var.password
+  password = var.password == "" ? random_id.password[0].hex : var.password
   port           = "5432"
   instance_class = var.instance_class
 
@@ -67,7 +67,7 @@ resource "helm_release" "metabase" {
     },
     {
       name  = "database.password"
-      value = var.password == "" ? random_password.password[0].result : var.password
+      value = var.password == "" ? random_id.password[0].hex : var.password
     }
   ]
 }
