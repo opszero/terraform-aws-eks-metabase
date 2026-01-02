@@ -32,7 +32,7 @@ module "postgresql" {
   # database
   db_name        = var.db_name
   db_username    = var.username
-  password = var.password == "" ? random_id.password[0].hex : var.password
+  password = var.password == "" ? module.postgresql.generated_password : var.password
   port           = "5432"
   instance_class = var.instance_class
 
