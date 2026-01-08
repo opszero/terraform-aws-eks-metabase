@@ -87,3 +87,15 @@ variable "metabase_version" {
   default     = "2.10.4"
   description = "version of metabase hemm chart."
 }
+
+variable "postgresql_name" {
+  type        = string
+  default     = "metabase-prod-postgres"
+  description = "Name  (e.g. `app` or `cluster`)."
+}
+
+variable "storage_type" {
+  type        = string
+  default     = "gp2"
+  description = "Name  (e.g. `app` or `cluster`)."
+}

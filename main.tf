@@ -8,7 +8,7 @@ resource "random_password" "password" {
 module "postgresql" {
   source = "git::https://github.com/opszero/terraform-aws-rds.git?ref=update/tags"
 
-  name = var.name
+  name = var.postgresql_name
 
   # networking
   allowed_ip          = var.allowed_ip
@@ -39,7 +39,7 @@ module "postgresql" {
   # engine
   engine               = "postgres"
   engine_name          = "postgres"
-  engine_version       = "15.5"
+  engine_version       = "15.12"
   family               = "postgres15"
   major_engine_version = "15"
 
@@ -48,6 +48,7 @@ module "postgresql" {
   ssm_parameter_endpoint_enabled = false
   deletion_protection            = false
   apply_immediately              = true
+  storage_type                   = var.storage_type
 }
 
 resource "helm_release" "metabase" {
