@@ -99,3 +99,21 @@ variable "storage_type" {
   default     = "gp2"
   description = "Name  (e.g. `app` or `cluster`)."
 }
+
+variable "engine_version" {
+  type        = string
+  default     = "15.12"
+  description = "The engine version to use for the RDS PostgreSQL instance."
+}
+
+variable "family" {
+  type        = string
+  default     = "postgres15"
+  description = "The DB parameter group family."
+}
+
+variable "major_engine_version" {
+  type        = string
+  default     = "15"
+  description = "The major engine version for the option group."
+}

@@ -39,9 +39,9 @@ module "postgresql" {
   # engine
   engine               = "postgres"
   engine_name          = "postgres"
-  engine_version       = "15.12"
-  family               = "postgres15"
-  major_engine_version = "15"
+  engine_version       = var.engine_version
+  family               = var.family
+  major_engine_version = var.major_engine_version
 
   # other
   multi_az                       = false
