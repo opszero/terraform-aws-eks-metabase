@@ -48,7 +48,7 @@ This project is licensed under the **MIT** License - see the [LICENSE](https://g
 | Name | Version |
 |------|---------|
 | <a name="provider_helm"></a> [helm](#provider\_helm) | 3.2.0 |
-| <a name="provider_random"></a> [random](#provider\_random) | 3.9.0 |
+| <a name="provider_random"></a> [random](#provider\_random) | 3.9.1 |
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -72,7 +72,7 @@ This project is licensed under the **MIT** License - see the [LICENSE](https://g
 | Name | Type |
 |------|------|
 | [helm_release.metabase](https://registry.terraform.io/providers/hashicorp/helm/3.2.0/docs/resources/release) | resource |
-| [random_password.password](https://registry.terraform.io/providers/hashicorp/random/3.9.0/docs/resources/password) | resource |
+| [random_password.password](https://registry.terraform.io/providers/hashicorp/random/3.9.1/docs/resources/password) | resource |
 ## Outputs
 
 No outputs.
